@@ -1,61 +1,82 @@
 # HelpDesk Студия
 
-Простой статический сайт для GitHub Pages без фреймворков и сборки.
+React + TypeScript + Tailwind CSS сайт для GitHub Pages со shadcn-совместимой структурой.
 
 ## Файлы
 
-- `index.html` — стартовая страница.
-- `styles.css` — адаптивная верстка и оформление.
-- `script.js` — базовое поведение формы.
+- `index.html` — Vite HTML entry.
+- `src/App.tsx` — стартовая страница входа.
+- `src/index.css` — Tailwind CSS и токены дизайн-системы.
+- `components/ui/glow-horizon.tsx` — интегрированный React-компонент Glow Horizon.
+- `components/ui/glow-horizon-utils/animated-title-fm.tsx` — вспомогательный компонент для демо.
+- `src/demo.tsx` — демо из задания.
+- `components.json` — shadcn-конфигурация.
+- `lib/utils.ts` — shadcn helper `cn`.
 - `assets/logo.png` — логотип на стартовой странице.
 
-В `styles.css` перенесены ключевые токены дизайн-системы: цвета в OKLCH, радиус, шрифты `Outfit` и `Fira Code`, базовые light/dark-переменные. Tailwind/Next не требуются.
+В `src/index.css` перенесены ключевые токены дизайн-системы: цвета в OKLCH, радиус, шрифты `Outfit` и `Fira Code`, базовые light/dark-переменные.
+
+## Структура shadcn
+
+Компоненты лежат в `components/ui`, потому что импорт из задания использует:
+
+```tsx
+import GlowHorizonFM from "@/components/ui/glow-horizon";
+```
+
+Alias `@/*` настроен в `vite.config.ts` и `tsconfig.app.json` на корень проекта. Это сохраняет совместимость с shadcn-паттерном и позволяет переносить UI-компоненты без переписывания импортов.
 
 ## Локальный просмотр
 
-Открой `index.html` в браузере или запусти простой локальный сервер:
+Установи зависимости:
 
 ```bash
-python3 -m http.server 8000
+pnpm install
 ```
 
-После этого открой:
+Запусти dev server:
 
-```text
-http://localhost:8000
+```bash
+pnpm run dev
+```
+
+Проверка production build:
+
+```bash
+pnpm run build
 ```
 
 ## Публикация на GitHub Pages
 
-1. Убедись, что репозиторий привязан к GitHub:
+Публикация настроена через GitHub Actions:
+
+```text
+.github/workflows/pages.yml
+```
+
+Workflow делает `pnpm install --frozen-lockfile`, `pnpm run build` и публикует папку `dist`.
+
+Ручная отправка изменений:
 
 ```bash
 git remote -v
+git add .
+git commit -m "Update site"
+git push origin main
 ```
 
-2. Добавь файлы и сделай первый коммит:
-
-```bash
-git add index.html styles.css script.js README.md assets/logo.png
-git commit -m "Add static HelpDesk start page"
-```
-
-3. Отправь ветку `main` в GitHub:
-
-```bash
-git push -u origin main
-```
-
-4. Открой репозиторий на GitHub: `Potemkina/helpdesk_demo`.
-5. Перейди в `Settings` -> `Pages`.
-6. В блоке `Build and deployment` выбери:
-   - `Source`: `Deploy from a branch`
-   - `Branch`: `main`
-   - папка: `/ (root)`
-7. Нажми `Save`.
-
-Через несколько минут сайт будет доступен по адресу:
+Сайт:
 
 ```text
 https://potemkina.github.io/helpdesk_demo/
 ```
+
+## Если нужно повторно инициализировать shadcn
+
+В проекте уже есть `components.json`, `components/ui` и `lib/utils.ts`. Если нужно пересоздать shadcn-настройки с нуля:
+
+```bash
+npx shadcn@latest init
+```
+
+При выборе путей важно оставить UI-компоненты в `components/ui` или обновить alias `@/components/ui`, иначе импорт `@/components/ui/glow-horizon` перестанет совпадать с компонентами из задания.

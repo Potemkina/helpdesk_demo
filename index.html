@@ -8,63 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main class="page-shell">
-      <section class="login-panel" aria-labelledby="page-title">
-        <div class="logo-slot" aria-label="Логотип">
-          <img src="assets/logo.png" alt="Логотип HelpDesk Студия">
-        </div>
-
-        <div class="title-block">
-          <p class="eyebrow">HelpDesk</p>
-          <h1 id="page-title">HelpDesk Студия</h1>
-          <p class="subtitle">Вход для команды поддержки</p>
-        </div>
-
-        <form class="login-form" id="loginForm" novalidate>
-          <label class="field">
-            <span>Логин</span>
-            <input
-              id="login"
-              name="login"
-              type="text"
-              autocomplete="username"
-              placeholder="Введите логин"
-              required
-            >
-          </label>
-
-          <label class="field">
-            <span>Пароль</span>
-            <span class="password-control">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autocomplete="current-password"
-                placeholder="Введите пароль"
-                required
-              >
-              <button class="icon-button" type="button" id="togglePassword" aria-label="Показать пароль">
-                <span aria-hidden="true">◎</span>
-              </button>
-            </span>
-          </label>
-
-          <button class="primary-button" type="submit">Войти в студию</button>
-
-          <div class="secondary-actions" aria-label="Дополнительные действия">
-            <button type="button" id="forgotPassword">Забыли пароль?</button>
-            <button type="button" id="registerAccount">Регистрация</button>
-          </div>
-
-          <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
-        </form>
-      </section>
-    </main>
-
-    <script src="script.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
